@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Access OS — Your Digital Playground</title>
+  <meta name="description" content="Access OS — Games, music, proxy, and more. Your all-in-one digital hub.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+</head>
+<body>
+  <!-- Background Effects -->
+  <div class="bg-effects">
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">🚀</div>
+      Access OS
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="games.html">Games</a></li>
+      <li><a href="proxy.html">Proxy</a></li>
+      <li><a href="music.html">Music</a></li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <button class="nav-settings-btn" id="settingsBtn" aria-label="Settings">⚙</button>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">☰</button>
+    </div>
+  </nav>
+
+  <!-- Settings Drawer -->
+  <div class="settings-overlay" id="settingsOverlay"></div>
+  <div class="settings-drawer" id="settingsDrawer">
+    <div class="drawer-header">
+      <h2>⚙ Settings</h2>
+      <button class="drawer-close" id="settingsClose">&times;</button>
+    </div>
+    <div class="drawer-body">
+      <div class="settings-section">
+        <h3>Theme</h3>
+        <div class="theme-grid">
+          <button class="theme-swatch active" data-theme="default">
+            <div class="swatch-colors">
+              <span class="swatch-dot" style="background:#6c5ce7"></span>
+              <span class="swatch-dot" style="background:#a29bfe"></span>
+              <span class="swatch-dot" style="background:#74b9ff"></span>
+            </div>
+            Amethyst
+          </button>
+          <button class="theme-swatch" data-theme="ocean">
+            <div class="swatch-colors">
+              <span class="swatch-dot" style="background:#0984e3"></span>
+              <span class="swatch-dot" style="background:#74b9ff"></span>
+              <span class="swatch-dot" style="background:#00cec9"></span>
+            </div>
+            Ocean
+          </button>
+          <button class="theme-swatch" data-theme="sunset">
+            <div class="swatch-colors">
+              <span class="swatch-dot" style="background:#e17055"></span>
+              <span class="swatch-dot" style="background:#fab1a0"></span>
+              <span class="swatch-dot" style="background:#fdcb6e"></span>
+            </div>
+            Sunset
+          </button>
+          <button class="theme-swatch" data-theme="forest">
+            <div class="swatch-colors">
+              <span class="swatch-dot" style="background:#00b894"></span>
+              <span class="swatch-dot" style="background:#55efc4"></span>
+              <span class="swatch-dot" style="background:#81ecec"></span>
+            </div>
+            Forest
+          </button>
+          <button class="theme-swatch" data-theme="cherry">
+            <div class="swatch-colors">
+              <span class="swatch-dot" style="background:#d63031"></span>
+              <span class="swatch-dot" style="background:#ff7675"></span>
+              <span class="swatch-dot" style="background:#fd79a8"></span>
+            </div>
+            Cherry
+          </button>
+          <button class="theme-swatch" data-theme="midnight">
+            <div class="swatch-colors">
+              <span class="swatch-dot" style="background:#2d3436"></span>
+              <span class="swatch-dot" style="background:#636e72"></span>
+              <span class="swatch-dot" style="background:#b2bec3"></span>
+            </div>
+            Midnight
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        System Online
+      </div>
+      <h1>Welcome to <span class="gradient-text">Access OS</span></h1>
+      <p>Your all-in-one digital playground. Play games, stream music, browse freely — all from one sleek interface.</p>
+      <div class="hero-actions">
+        <a href="games.html" class="btn btn-primary">🎮 Play Games</a>
+        <a href="music.html" class="btn btn-secondary">🎵 Stream Music</a>
+      </div>
+    </section>
+
+    <!-- Custom Panel -->
+    <section class="custom-panel-section" id="customPanel">
+      <div class="custom-panel-header">
+        <h2>📌 Your Shortcuts</h2>
+      </div>
+      <div class="panel-grid" id="panelGrid">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+      <div class="section-header">
+        <h2>Everything You Need</h2>
+        <p>Explore our built-in tools and features</p>
+      </div>
+      <div class="features-grid">
+        <a href="games.html" class="feature-card">
+          <div class="card-icon purple">🎮</div>
+          <h3>Unblocked Games</h3>
+          <p>Dozens of browser games ready to play instantly. No downloads, no installs — just click and play.</p>
+        </a>
+        <a href="proxy.html" class="feature-card">
+          <div class="card-icon green">🌐</div>
+          <h3>Web Proxy</h3>
+          <p>Browse any website freely through our built-in proxy. Fast, simple, and seamless.</p>
+        </a>
+        <a href="music.html" class="feature-card">
+          <div class="card-icon pink">🎵</div>
+          <h3>Spotify Player</h3>
+          <p>Listen to your favorite playlists and artists with our integrated Spotify player.</p>
+        </a>
+        <a href="#features" class="feature-card">
+          <div class="card-icon orange">⚡</div>
+          <h3>Blazing Fast</h3>
+          <p>Built for speed. No bloat, no lag — just a smooth experience on any device.</p>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Panel Add Modal -->
+  <div class="panel-modal" id="panelModal">
+    <div class="panel-modal-content">
+      <h3>Add Shortcut</h3>
+      <div class="panel-form-group">
+        <label for="panelName">Name</label>
+        <input type="text" id="panelName" placeholder="e.g. YouTube">
+      </div>
+      <div class="panel-form-group">
+        <label for="panelUrl">URL</label>
+        <input type="text" id="panelUrl" placeholder="e.g. https://youtube.com">
+      </div>
+      <div class="panel-form-group">
+        <label>Icon</label>
+        <div class="emoji-picker-row">
+          <button class="selected">🔗</button>
+          <button>🌐</button>
+          <button>📺</button>
+          <button>📱</button>
+          <button>💬</button>
+          <button>📧</button>
+          <button>📁</button>
+          <button>🎮</button>
+          <button>🎵</button>
+          <button>📷</button>
+          <button>🛒</button>
+          <button>📚</button>
+          <button>⭐</button>
+          <button>🔥</button>
+          <button>💡</button>
+        </div>
+      </div>
+      <div class="panel-modal-actions">
+        <button class="btn btn-secondary" id="panelCancel">Cancel</button>
+        <button class="btn btn-primary" id="panelSave">Add Shortcut</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Access OS &copy; 2026 — Built for the community</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

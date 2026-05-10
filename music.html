@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music — Access OS</title>
+  <meta name="description" content="Stream music with Access OS built-in Spotify player.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+</head>
+<body>
+  <div class="bg-effects">
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+  </div>
+
+  <nav class="navbar">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">🚀</div>
+      Access OS
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="games.html">Games</a></li>
+      <li><a href="proxy.html">Proxy</a></li>
+      <li><a href="music.html" class="active">Music</a></li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <button class="nav-settings-btn" id="settingsBtn" aria-label="Settings">⚙</button>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">☰</button>
+    </div>
+  </nav>
+
+  <div class="settings-overlay" id="settingsOverlay"></div>
+  <div class="settings-drawer" id="settingsDrawer">
+    <div class="drawer-header">
+      <h2>⚙ Settings</h2>
+      <button class="drawer-close" id="settingsClose">&times;</button>
+    </div>
+    <div class="drawer-body">
+      <div class="settings-section">
+        <h3>Theme</h3>
+        <div class="theme-grid">
+          <button class="theme-swatch active" data-theme="default"><div class="swatch-colors"><span class="swatch-dot" style="background:#6c5ce7"></span><span class="swatch-dot" style="background:#a29bfe"></span><span class="swatch-dot" style="background:#74b9ff"></span></div>Amethyst</button>
+          <button class="theme-swatch" data-theme="ocean"><div class="swatch-colors"><span class="swatch-dot" style="background:#0984e3"></span><span class="swatch-dot" style="background:#74b9ff"></span><span class="swatch-dot" style="background:#00cec9"></span></div>Ocean</button>
+          <button class="theme-swatch" data-theme="sunset"><div class="swatch-colors"><span class="swatch-dot" style="background:#e17055"></span><span class="swatch-dot" style="background:#fab1a0"></span><span class="swatch-dot" style="background:#fdcb6e"></span></div>Sunset</button>
+          <button class="theme-swatch" data-theme="forest"><div class="swatch-colors"><span class="swatch-dot" style="background:#00b894"></span><span class="swatch-dot" style="background:#55efc4"></span><span class="swatch-dot" style="background:#81ecec"></span></div>Forest</button>
+          <button class="theme-swatch" data-theme="cherry"><div class="swatch-colors"><span class="swatch-dot" style="background:#d63031"></span><span class="swatch-dot" style="background:#ff7675"></span><span class="swatch-dot" style="background:#fd79a8"></span></div>Cherry</button>
+          <button class="theme-swatch" data-theme="midnight"><div class="swatch-colors"><span class="swatch-dot" style="background:#2d3436"></span><span class="swatch-dot" style="background:#636e72"></span><span class="swatch-dot" style="background:#b2bec3"></span></div>Midnight</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="main-content">
+    <div class="page-header">
+      <h1>🎵 Music Player</h1>
+      <p>Stream playlists and tracks powered by Spotify</p>
+    </div>
+
+    <div class="music-container">
+      <div class="music-player-wrapper">
+        <div class="custom-embed-section">
+          <h3>Paste a Spotify Link</h3>
+          <div class="spotify-search">
+            <input type="text" id="spotifyInput" placeholder="Paste Spotify track, album, or playlist URL...">
+            <button class="btn" id="spotifyLoad">▶ Play</button>
+          </div>
+          <div id="customPlayer" style="max-width:660px;margin:0 auto;"></div>
+        </div>
+      </div>
+
+      <div class="section-header" style="margin-top:1rem;">
+        <h2>Featured Playlists</h2>
+        <p>Pick a playlist and start listening</p>
+      </div>
+
+      <div class="playlists-grid" id="playlistsGrid">
+        <div class="playlist-card">
+          <div class="embed-wrapper">
+            <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator&theme=0" height="352" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          </div>
+          <div class="playlist-info"><h3>Today's Top Hits</h3><span>Pop • Updated daily</span></div>
+        </div>
+        <div class="playlist-card">
+          <div class="embed-wrapper">
+            <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DX0XUsuxWHRQd?utm_source=generator&theme=0" height="352" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          </div>
+          <div class="playlist-info"><h3>RapCaviar</h3><span>Hip-Hop • Updated daily</span></div>
+        </div>
+        <div class="playlist-card">
+          <div class="embed-wrapper">
+            <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DX4SBhb3fqCJd?utm_source=generator&theme=0" height="352" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          </div>
+          <div class="playlist-info"><h3>Are & Be</h3><span>R&B • Updated daily</span></div>
+        </div>
+        <div class="playlist-card">
+          <div class="embed-wrapper">
+            <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DWXRqgorJj26U?utm_source=generator&theme=0" height="352" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          </div>
+          <div class="playlist-info"><h3>Rock Classics</h3><span>Rock • Classic hits</span></div>
+        </div>
+        <div class="playlist-card">
+          <div class="embed-wrapper">
+            <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DX4dyzvuaRJ0n?utm_source=generator&theme=0" height="352" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          </div>
+          <div class="playlist-info"><h3>mint</h3><span>Electronic • Fresh picks</span></div>
+        </div>
+        <div class="playlist-card">
+          <div class="embed-wrapper">
+            <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DX1lVhptIYRda?utm_source=generator&theme=0" height="352" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          </div>
+          <div class="playlist-info"><h3>Hot Country</h3><span>Country • Top tracks</span></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>Access OS &copy; 2026 — Built for the community</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script>
+    const spotifyInput = document.getElementById('spotifyInput');
+    const spotifyLoad = document.getElementById('spotifyLoad');
+    const customPlayer = document.getElementById('customPlayer');
+
+    function parseSpotifyUrl(url) {
+      const match = url.match(/open\.spotify\.com\/(track|album|playlist|artist)\/([a-zA-Z0-9]+)/);
+      if (match) return { type: match[1], id: match[2] };
+      const uriMatch = url.match(/spotify:(track|album|playlist|artist):([a-zA-Z0-9]+)/);
+      if (uriMatch) return { type: uriMatch[1], id: uriMatch[2] };
+      return null;
+    }
+
+    function loadSpotify() {
+      const url = spotifyInput.value.trim();
+      if (!url) return;
+      const parsed = parseSpotifyUrl(url);
+      if (parsed) {
+        const embedUrl = `https://open.spotify.com/embed/${parsed.type}/${parsed.id}?utm_source=generator&theme=0`;
+        customPlayer.innerHTML = `<iframe style="border-radius:12px;width:100%;margin-top:1rem;" src="${embedUrl}" height="352" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
+      } else {
+        customPlayer.innerHTML = `<p style="color:var(--accent-pink);text-align:center;margin-top:1rem;">Invalid Spotify URL. Please paste a valid Spotify link.</p>`;
+      }
+    }
+
+    spotifyLoad.addEventListener('click', loadSpotify);
+    spotifyInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') loadSpotify(); });
+  </script>
+</body>
+</html>

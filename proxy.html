@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proxy — Access OS</title>
+  <meta name="description" content="Browse freely with Access OS built-in web proxy.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+</head>
+<body>
+  <div class="bg-effects">
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+  </div>
+
+  <nav class="navbar">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">🚀</div>
+      Access OS
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="games.html">Games</a></li>
+      <li><a href="proxy.html" class="active">Proxy</a></li>
+      <li><a href="music.html">Music</a></li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <button class="nav-settings-btn" id="settingsBtn" aria-label="Settings">⚙</button>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">☰</button>
+    </div>
+  </nav>
+
+  <div class="settings-overlay" id="settingsOverlay"></div>
+  <div class="settings-drawer" id="settingsDrawer">
+    <div class="drawer-header">
+      <h2>⚙ Settings</h2>
+      <button class="drawer-close" id="settingsClose">&times;</button>
+    </div>
+    <div class="drawer-body">
+      <div class="settings-section">
+        <h3>Theme</h3>
+        <div class="theme-grid">
+          <button class="theme-swatch active" data-theme="default"><div class="swatch-colors"><span class="swatch-dot" style="background:#6c5ce7"></span><span class="swatch-dot" style="background:#a29bfe"></span><span class="swatch-dot" style="background:#74b9ff"></span></div>Amethyst</button>
+          <button class="theme-swatch" data-theme="ocean"><div class="swatch-colors"><span class="swatch-dot" style="background:#0984e3"></span><span class="swatch-dot" style="background:#74b9ff"></span><span class="swatch-dot" style="background:#00cec9"></span></div>Ocean</button>
+          <button class="theme-swatch" data-theme="sunset"><div class="swatch-colors"><span class="swatch-dot" style="background:#e17055"></span><span class="swatch-dot" style="background:#fab1a0"></span><span class="swatch-dot" style="background:#fdcb6e"></span></div>Sunset</button>
+          <button class="theme-swatch" data-theme="forest"><div class="swatch-colors"><span class="swatch-dot" style="background:#00b894"></span><span class="swatch-dot" style="background:#55efc4"></span><span class="swatch-dot" style="background:#81ecec"></span></div>Forest</button>
+          <button class="theme-swatch" data-theme="cherry"><div class="swatch-colors"><span class="swatch-dot" style="background:#d63031"></span><span class="swatch-dot" style="background:#ff7675"></span><span class="swatch-dot" style="background:#fd79a8"></span></div>Cherry</button>
+          <button class="theme-swatch" data-theme="midnight"><div class="swatch-colors"><span class="swatch-dot" style="background:#2d3436"></span><span class="swatch-dot" style="background:#636e72"></span><span class="swatch-dot" style="background:#b2bec3"></span></div>Midnight</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="main-content">
+    <div class="page-header">
+      <h1>🌐 Web Proxy</h1>
+      <p>Browse any website through the built-in viewer</p>
+    </div>
+
+    <div class="proxy-container">
+      <div class="proxy-box">
+        <h2>Enter a URL</h2>
+        <p>Type a full URL below and hit Go. Note: Some sites (like Reddit, YouTube, DuckDuckGo) block embedding for security. If a site doesn't load, use the "New Tab" button.</p>
+        <div class="proxy-input-group">
+          <input type="text" id="proxyUrl" placeholder="https://example.com" autocomplete="off">
+          <button class="btn btn-primary" id="proxyGo">Go →</button>
+        </div>
+        <div class="proxy-fallback" id="proxyFallback" style="display:none;margin-top:1rem;text-align:center;">
+          <p style="color:var(--accent-pink);font-size:0.9rem;margin-bottom:0.5rem;">⚠️ Site refused to connect? It might block embedding.</p>
+          <a href="#" id="openNewTab" target="_blank" class="btn btn-secondary">Open in New Tab ↗</a>
+        </div>
+        <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:1.5rem;">
+          <button class="category-tab" onclick="loadProxy('https://www.google.com/webhp?igu=1')">Google (IGU)</button>
+          <button class="category-tab" onclick="loadProxy('https://www.bing.com')">Bing</button>
+          <button class="category-tab" onclick="loadProxy('https://www.wikipedia.org')">Wikipedia</button>
+          <button class="category-tab" onclick="loadProxy('https://archive.org')">Wayback Machine</button>
+          <button class="category-tab" onclick="loadProxy('https://github.com')">GitHub</button>
+        </div>
+      </div>
+
+      <div class="proxy-frame-wrapper" id="proxyFrame">
+        <div class="proxy-frame-bar">
+          <div class="dots">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="url-display" id="urlDisplay">about:blank</div>
+          <button class="fullscreen-btn" id="proxyFullscreen">⛶ Fullscreen</button>
+        </div>
+        <iframe id="proxyIframe" src="" sandbox="allow-same-origin allow-scripts allow-forms allow-popups" referrerpolicy="no-referrer"></iframe>
+      </div>
+    </div>
+
+    <div class="proxy-tips">
+      <div class="tip-card">
+        <div class="tip-icon">🔒</div>
+        <h3>HTTPS Supported</h3>
+        <p>Secure sites work in the embedded viewer. Some may block iframe loading.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">⚡</div>
+        <h3>Quick Access</h3>
+        <p>Use the shortcut buttons above for instant access to popular sites.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">🖥️</div>
+        <h3>Fullscreen</h3>
+        <p>Click the fullscreen button for an immersive browsing experience.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>Access OS &copy; 2026 — Built for the community</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script>
+    const proxyInput = document.getElementById('proxyUrl');
+    const proxyGoBtn = document.getElementById('proxyGo');
+    const proxyFrameWrapper = document.getElementById('proxyFrame');
+    const proxyIframe = document.getElementById('proxyIframe');
+    const urlDisplay = document.getElementById('urlDisplay');
+    const proxyFullscreen = document.getElementById('proxyFullscreen');
+    const proxyFallback = document.getElementById('proxyFallback');
+    const openNewTabBtn = document.getElementById('openNewTab');
+
+    function loadProxy(url) {
+      if (!url.startsWith('http://') && !url.startsWith('https://')) {
+        url = 'https://' + url;
+      }
+      proxyInput.value = url;
+      proxyIframe.src = url;
+      urlDisplay.textContent = url;
+      proxyFrameWrapper.classList.add('active');
+      
+      // Update fallback button
+      proxyFallback.style.display = 'block';
+      openNewTabBtn.href = url;
+      
+      proxyFrameWrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Auto-load from query params (used by games page)
+    const params = new URLSearchParams(window.location.search);
+    const autoUrl = params.get('url');
+    if (autoUrl) {
+      const gameName = params.get('name');
+      if (gameName) {
+        document.querySelector('.page-header h1').textContent = '🎮 ' + gameName;
+        document.querySelector('.page-header p').textContent = 'Playing through Access OS proxy';
+      }
+      loadProxy(autoUrl);
+    }
+
+    proxyGoBtn.addEventListener('click', () => {
+      const url = proxyInput.value.trim();
+      if (url) loadProxy(url);
+    });
+
+    proxyInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const url = proxyInput.value.trim();
+        if (url) loadProxy(url);
+      }
+    });
+
+    proxyFullscreen.addEventListener('click', () => {
+      if (proxyIframe.requestFullscreen) {
+        proxyIframe.requestFullscreen();
+      } else if (proxyIframe.webkitRequestFullscreen) {
+        proxyIframe.webkitRequestFullscreen();
+      }
+    });
+  </script>
+</body>
+</html>
