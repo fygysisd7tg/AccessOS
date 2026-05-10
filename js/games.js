@@ -62,7 +62,7 @@ function renderGames(filter = '') {
   });
 
   grid.innerHTML = filtered.map(g => `
-    <div class="game-card" data-url="${g.url}" data-name="${g.name}" data-iframe="${g.iframe}">
+    <div class="game-card" data-url="${g.url}" data-name="${g.name}" data-iframe="${g.iframe}" data-icon="${g.icon}">
       <div class="game-thumb">
         ${g.icon}
         <div class="play-overlay">
@@ -85,8 +85,9 @@ function renderGames(filter = '') {
     card.addEventListener('click', () => {
       const canIframe = card.dataset.iframe === 'true';
       const url = card.dataset.url;
+      const icon = card.dataset.icon;
       if (canIframe) {
-        openGame(url, card.dataset.name);
+        openGame(url, card.dataset.name, icon);
       } else {
         // Open in new tab for sites that block iframes (like Poki)
         window.open(url, '_blank', 'noopener');
@@ -95,7 +96,12 @@ function renderGames(filter = '') {
   });
 }
 
-function openGame(url, name) {
+function openGame(url, name, icon = '🎮') {
+  if (window !== window.top) {
+    window.parent.postMessage({ type: 'openApp', appId: name, url: url, icon: icon }, '*');
+    return;
+  }
+
   const modal = document.getElementById('gameModal');
   const frame = document.getElementById('gameFrame');
   const title = document.getElementById('modalTitle');

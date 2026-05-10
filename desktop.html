@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Desktop — Access OS</title>
   <meta name="description" content="Access OS Desktop Environment.">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>">
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>">
 </head>
+
 <body>
   <!-- Background Image -->
-  <div class="bg-effects" id="bgEffects" style="background: url('img/black_wallpaper.png') center/cover no-repeat; opacity: 1;">
+  <div class="bg-effects" id="bgEffects"
+    style="background: url('img/black_wallpaper.png') center/cover no-repeat; opacity: 1;">
   </div>
 
   <!-- Settings Drawer for changing Animated Background Themes -->
@@ -23,7 +27,8 @@
     <div class="drawer-body">
       <div class="settings-section">
         <h3>Background Theme</h3>
-        <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 1rem;">Change your animated background colors.</p>
+        <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 1rem;">Change your animated
+          background colors.</p>
         <div class="theme-grid">
           <button class="theme-swatch active" data-theme="default">
             <div class="swatch-colors">
@@ -79,12 +84,15 @@
       <!-- Custom Wallpaper Section -->
       <div class="settings-section" style="margin-top: 2rem;">
         <h3>Custom Wallpaper</h3>
-        <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 1rem;">Upload an image from your computer to use as the background.</p>
-        <label for="wallpaperUpload" class="btn btn-secondary" style="width: 100%; display: flex; justify-content: center; cursor: pointer; text-align: center;">
+        <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 1rem;">Upload an image from your
+          computer to use as the background.</p>
+        <label for="wallpaperUpload" class="btn btn-secondary"
+          style="width: 100%; display: flex; justify-content: center; cursor: pointer; text-align: center;">
           📸 Choose Image
         </label>
         <input type="file" id="wallpaperUpload" accept="image/*" style="display: none;">
-        <button id="resetWallpaper" class="btn btn-secondary" style="width: 100%; display: flex; justify-content: center; margin-top: 10px;">
+        <button id="resetWallpaper" class="btn btn-secondary"
+          style="width: 100%; display: flex; justify-content: center; margin-top: 10px;">
           🔄 Reset Default
         </button>
       </div>
@@ -132,4 +140,5 @@
 
   <script src="js/script.js"></script>
 </body>
+
 </html>

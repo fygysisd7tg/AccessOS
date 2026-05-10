@@ -64,8 +64,20 @@
         <h2>Enter a URL</h2>
         <p>Type a full URL below and hit Go. Note: Some sites (like Reddit, YouTube, DuckDuckGo) block embedding for security. If a site doesn't load, use the "New Tab" button.</p>
         <div class="proxy-input-group">
+          <button class="btn btn-secondary" id="proxySettingsBtn" title="Proxy Engine Settings">⚙️</button>
           <input type="text" id="proxyUrl" placeholder="https://example.com" autocomplete="off">
           <button class="btn btn-primary" id="proxyGo">Go →</button>
+        </div>
+
+        <div id="proxySettingsPanel" style="display: none; background: var(--bg-secondary); border: 1px solid var(--border-glass); border-radius: var(--radius-md); padding: 1rem; margin-bottom: 1rem; text-align: left; max-width: 560px; margin-left: auto; margin-right: auto;">
+          <h3 style="font-size: 1rem; margin-bottom: 0.5rem;">Proxy Engine</h3>
+          <select id="proxyEngineSelect" style="width: 100%; padding: 10px; border-radius: var(--radius-sm); background: var(--bg-primary); color: var(--text-primary); border: 1px solid var(--border-glass); font-family: inherit; font-size: 0.95rem;">
+            <option value="direct">Direct Iframe (Default)</option>
+            <option value="scramjet">Scramjet</option>
+            <option value="ethereal">Ethereal</option>
+            <option value="ultraviolet">Ultraviolet</option>
+          </select>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">Select the backend engine used to route your web requests. Changing this can help bypass strict blockers.</p>
         </div>
         <div class="proxy-fallback" id="proxyFallback" style="display:none;margin-top:1rem;text-align:center;">
           <p style="color:var(--accent-pink);font-size:0.9rem;margin-bottom:0.5rem;">⚠️ Site refused to connect? It might block embedding.</p>
@@ -126,18 +138,39 @@
     const proxyFallback = document.getElementById('proxyFallback');
     const openNewTabBtn = document.getElementById('openNewTab');
 
+    const proxySettingsBtn = document.getElementById('proxySettingsBtn');
+    const proxySettingsPanel = document.getElementById('proxySettingsPanel');
+    const proxyEngineSelect = document.getElementById('proxyEngineSelect');
+
+    proxySettingsBtn.addEventListener('click', () => {
+      proxySettingsPanel.style.display = proxySettingsPanel.style.display === 'none' ? 'block' : 'none';
+    });
+
     function loadProxy(url) {
       if (!url.startsWith('http://') && !url.startsWith('https://')) {
         url = 'https://' + url;
       }
+      
+      const engine = proxyEngineSelect.value;
+      let finalUrl = url;
+      
+      // Simulate proxy engine routing (these would point to your actual backend nodes)
+      if (engine === 'scramjet') {
+        finalUrl = 'https://scramjet-node.example.com/route/' + btoa(url);
+      } else if (engine === 'ethereal') {
+        finalUrl = 'https://ethereal-network.example.com/surf/' + encodeURIComponent(url);
+      } else if (engine === 'ultraviolet') {
+        finalUrl = 'https://uv-service.example.com/go/' + encodeURIComponent(url);
+      }
+
       proxyInput.value = url;
-      proxyIframe.src = url;
-      urlDisplay.textContent = url;
+      proxyIframe.src = finalUrl;
+      urlDisplay.textContent = url + (engine !== 'direct' ? ` (via ${engine})` : '');
       proxyFrameWrapper.classList.add('active');
       
       // Update fallback button
       proxyFallback.style.display = 'block';
-      openNewTabBtn.href = url;
+      openNewTabBtn.href = finalUrl;
       
       proxyFrameWrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }

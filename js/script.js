@@ -99,6 +99,13 @@ function bringToFront(win) {
   win.style.zIndex = highestZ;
 }
 
+// Listen for messages from iframes (e.g., Games opening new windows)
+window.addEventListener('message', (e) => {
+  if (e.data && e.data.type === 'openApp' && typeof window.openApp === 'function') {
+    window.openApp(e.data.appId, e.data.url, e.data.icon);
+  }
+});
+
 // ---- Theme System ----
 const THEMES = [
   { id: 'default', name: 'Amethyst', colors: ['#6c5ce7', '#a29bfe', '#74b9ff'] },
