@@ -1,5 +1,104 @@
 // ===== Access OS — Shared Script =====
 
+// ---- Window Manager ----
+let highestZ = 100;
+
+window.openApp = function(appId, url, icon) {
+  const container = document.getElementById('windowContainer');
+  if (!container) return; // Not on desktop page
+  
+  // Check if window already exists
+  let existingWin = document.getElementById(`win-${appId}`);
+  if (existingWin) {
+    existingWin.style.display = 'flex';
+    bringToFront(existingWin);
+    return;
+  }
+  
+  // Create new window
+  const win = document.createElement('div');
+  win.className = 'app-window';
+  win.id = `win-${appId}`;
+  
+  // Stagger positions
+  const offset = (container.children.length % 5) * 30;
+  win.style.top = `${80 + offset}px`;
+  win.style.left = `${100 + offset}px`;
+  
+  win.innerHTML = `
+    <div class="window-header">
+      <div class="window-title">${icon} ${appId}</div>
+      <div class="window-controls">
+        <button class="win-min" title="Minimize"></button>
+        <button class="win-max" title="Maximize"></button>
+        <button class="win-close" title="Close"></button>
+      </div>
+    </div>
+    <div class="window-content">
+      <iframe src="${url}"></iframe>
+    </div>
+  `;
+  
+  container.appendChild(win);
+  bringToFront(win);
+  
+  // Event listeners
+  win.addEventListener('mousedown', () => bringToFront(win));
+  
+  const closeBtn = win.querySelector('.win-close');
+  closeBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    win.remove();
+  });
+  
+  const maxBtn = win.querySelector('.win-max');
+  maxBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    win.classList.toggle('maximized');
+  });
+  
+  const minBtn = win.querySelector('.win-min');
+  minBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    win.style.display = 'none';
+  });
+  
+  // Drag logic
+  const header = win.querySelector('.window-header');
+  let isDragging = false;
+  let offsetX = 0;
+  let offsetY = 0;
+  
+  header.addEventListener('mousedown', (e) => {
+    if (e.target.closest('.window-controls') || win.classList.contains('maximized')) return;
+    isDragging = true;
+    offsetX = e.clientX - win.getBoundingClientRect().left;
+    offsetY = e.clientY - win.getBoundingClientRect().top;
+    
+    const iframe = win.querySelector('iframe');
+    if (iframe) iframe.style.pointerEvents = 'none';
+  });
+  
+  document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    win.style.left = `${e.clientX - offsetX}px`;
+    win.style.top = `${e.clientY - offsetY}px`;
+  });
+  
+  document.addEventListener('mouseup', () => {
+    if (isDragging) {
+      isDragging = false;
+      const iframe = win.querySelector('iframe');
+      if (iframe) iframe.style.pointerEvents = 'auto';
+    }
+  });
+};
+
+function bringToFront(win) {
+  highestZ++;
+  win.style.zIndex = highestZ;
+}
+
 // ---- Theme System ----
 const THEMES = [
   { id: 'default', name: 'Amethyst', colors: ['#6c5ce7', '#a29bfe', '#74b9ff'] },
@@ -94,8 +193,19 @@ function addPanelItem(name, url, icon) {
 
 // ---- DOM Ready ----
 document.addEventListener('DOMContentLoaded', () => {
+  // Check if running inside an iframe window
+  if (window !== window.top) {
+    document.body.classList.add('in-window');
+  }
   // Load saved theme
   loadSavedTheme();
+
+  // Load saved wallpaper
+  const bgEffects = document.getElementById('bgEffects');
+  const savedWallpaper = localStorage.getItem('accessos-wallpaper');
+  if (savedWallpaper && bgEffects) {
+    bgEffects.style.background = `url('${savedWallpaper}') center/cover no-repeat`;
+  }
 
   // Mobile nav toggle
   const toggle = document.getElementById('mobileToggle');
@@ -210,6 +320,59 @@ document.addEventListener('DOMContentLoaded', () => {
       if (defaultBtn) defaultBtn.classList.add('selected');
 
       panelModal.classList.remove('active');
+    });
+  }
+
+  // Desktop Clock Logic
+  const taskbarClock = document.getElementById('taskbarClock');
+  if (taskbarClock) {
+    function updateClock() {
+      const now = new Date();
+      let hours = now.getHours();
+      let minutes = now.getMinutes();
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12;
+      hours = hours ? hours : 12; 
+      minutes = minutes < 10 ? '0' + minutes : minutes;
+      
+      const timeStr = `${hours}:${minutes} ${ampm}`;
+      const dateStr = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      
+      taskbarClock.innerHTML = `<div>${timeStr}</div><div class="clock-date">${dateStr}</div>`;
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+  }
+
+  // Custom Wallpaper Upload Logic
+  const wallpaperUpload = document.getElementById('wallpaperUpload');
+  const resetWallpaper = document.getElementById('resetWallpaper');
+  
+  if (wallpaperUpload && bgEffects) {
+    wallpaperUpload.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        const dataUrl = ev.target.result;
+        bgEffects.style.background = `url('${dataUrl}') center/cover no-repeat`;
+        try {
+          localStorage.setItem('accessos-wallpaper', dataUrl);
+        } catch (err) {
+          console.warn("Wallpaper too large to save to localStorage:", err);
+          alert("Image is too large to save permanently. It will only last for this session.");
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  if (resetWallpaper && bgEffects) {
+    resetWallpaper.addEventListener('click', () => {
+      localStorage.removeItem('accessos-wallpaper');
+      bgEffects.style.background = "url('img/black_wallpaper.png') center/cover no-repeat";
+      if (wallpaperUpload) wallpaperUpload.value = '';
     });
   }
 });
